@@ -14,31 +14,33 @@ public class save_profile : MonoBehaviour
     [SerializeField] private GameObject rectionGroup;
     [SerializeField] private TMP_Text reactionTextBox;
 
-    public InputField input_child_name;
-    public GameObject input_field;
-    public string child_name;
+    //public InputField input_child_name;
+    public GameObject name_input_field, age_input_field, gender_input_field;
+    public string child_name, child_age, child_gender;
     //public Button save_button;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //Button btn = save_button.GetComponent<save_button>();
-        //btn.onClick.AddListener(TaskOnClick);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        input_child_name.text = "Hello World!";
-        //child_name = input_field.GetComponent<TMP_InputField>().text;
+        //input_child_name.text = "Hello World!";
+        
+
+        //if (Input.GetMouseButtonDown(0))
+        //    Debug.Log("Pressed left-click.");
     }
 
-    void TaskOnClick(){
-        Debug.Log("You have clicked the button!");
-    }
-    
+
     public void PrintLog(){
+        child_name = name_input_field.GetComponent<TMP_InputField>().text;
+        child_age = age_input_field.GetComponent<TMP_InputField>().text;
+        child_gender = gender_input_field.GetComponent<TMP_InputField>().text;
         Debug.Log("You have clicked the button!");
     }
 
