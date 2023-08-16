@@ -17,24 +17,29 @@ public class save_profile : MonoBehaviour
     public InputField input_child_name;
     public GameObject input_field;
     public string child_name;
-    public Button save_button;
+    //public Button save_button;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Button btn = save_button.GetComponent<save_button>();
-        btn.onClick.AddListener(TaskOnClick);
+        //Button btn = save_button.GetComponent<save_button>();
+        //btn.onClick.AddListener(TaskOnClick);
     }
 
     // Update is called once per frame
     void Update()
     {
         input_child_name.text = "Hello World!";
-        child_name = input_field.GetComponent<TMP_InputField>().text;
+        //child_name = input_field.GetComponent<TMP_InputField>().text;
     }
 
     void TaskOnClick(){
-        Debug.Log ("You have clicked the button!");
+        Debug.Log("You have clicked the button!");
     }
+    
+    public void PrintLog(){
+        Debug.Log("You have clicked the button!");
+    }
+
 }
