@@ -20,7 +20,7 @@ public class spiderRun : MonoBehaviour
         
         //indicator_object.transform.position = point;
         //indicator_object.transform.Translate(0, -11, 0);
-        aim_position = new Vector3(point.x, 0.6f, point.z); //0.6 the y-position of spiders
+        aim_position = new Vector3(point.x, 0.0f, point.z); //0.6 the y-position of spiders
         indicator_object.transform.position = aim_position;
         moving_object.transform.LookAt(aim_position);
         
