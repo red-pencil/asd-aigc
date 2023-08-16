@@ -347,6 +347,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/followMouse.cs"
+"Assets/pageSwitch.cs"
 "Assets/save_profile.cs"
 "Assets/screenToWorld.cs"
 "Assets/spiderRun.cs"
