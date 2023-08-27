@@ -31,7 +31,7 @@ public class SaveChildData : MonoBehaviour
         string children = JsonUtility.ToJson(childInfoArray);
         
         // System.IO.File.WriteAllText(Application.persistentDataPath + "/ChildrenData.json", children);
-        System.IO.File.WriteAllText("MyData/ChildrenData.json", children);
+        System.IO.File.WriteAllText("./Assets/MyData/ChildrenData.json", children);
    }
 
 }

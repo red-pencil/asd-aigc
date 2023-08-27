@@ -52,6 +52,7 @@ public class UnityDalle2API : MonoBehaviour
         yield return www.SendWebRequest();
 
         gameObject.GetComponent<Renderer>().material.mainTexture = DownloadHandlerTexture.GetContent(www);
+        SaveTextureAsPNG(DownloadHandlerTexture.GetContent(www), "./Assets/myData/sample.PNG");
     }
     public void NewPrompt()
     {
@@ -83,4 +84,14 @@ public class UnityDalle2API : MonoBehaviour
         Debug.Log("AI image");
         NewPrompt();
     }
+
+    public static void SaveTextureAsPNG(Texture2D _texture, string _fullPath)
+    {
+        byte[] _bytes =_texture.EncodeToPNG();
+        System.IO.File.WriteAllBytes(_fullPath, _bytes);
+        Debug.Log(_bytes.Length/1024  + "Kb was saved as: " + _fullPath);
+    }
+
+
+
 }
