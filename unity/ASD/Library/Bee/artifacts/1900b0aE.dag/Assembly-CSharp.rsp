@@ -359,6 +359,7 @@
 "Assets/myScripts/pageSwitch.cs"
 "Assets/myScripts/PlayerInfo.cs"
 "Assets/myScripts/PlayerInfoReader.cs"
+"Assets/myScripts/SaveChildData.cs"
 "Assets/myScripts/save_profile.cs"
 "Assets/myScripts/screenToWorld.cs"
 "Assets/myScripts/spiderRun.cs"
