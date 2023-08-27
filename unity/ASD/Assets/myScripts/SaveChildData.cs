@@ -23,16 +23,15 @@ public class SaveChildData : MonoBehaviour
         basicInfoItem.like = like_input_field.GetComponent<TMP_InputField>().text;
         basicInfoItem.dislike = dislike_input_field.GetComponent<TMP_InputField>().text;
         basicInfoItem.notes = notes_input_field.GetComponent<TMP_InputField>().text;
-        
-
-
+    
         childInfoItem.basicInfo.Add(basicInfoItem);
 
         Debug.Log(childInfoItem.id);
         childInfoArray.childInfo.Add(childInfoItem);
         string children = JsonUtility.ToJson(childInfoArray);
         
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/ChildrenData.json", children);
+        // System.IO.File.WriteAllText(Application.persistentDataPath + "/ChildrenData.json", children);
+        System.IO.File.WriteAllText("MyData/ChildrenData.json", children);
    }
 
 }
