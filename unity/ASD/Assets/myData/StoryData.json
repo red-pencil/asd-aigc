@@ -1,0 +1,33 @@
+{
+    "pageInfo":
+    [
+        {
+            "index":0,
+            "title":"Generation Page",
+            "body": "Input prompt for DALL-E",
+            "prompt": ""
+
+        },
+        {
+            "index":1,
+            "title":"Act 1",
+            "body": "Body 1, Body 1, Body 1, Body 1, Body 1",
+            "prompt": "A boy play in a garden, smile on face, photorealistic"
+
+        },
+        {
+            "index":2,
+            "title":"Act 2",
+            "body": "Body 2, Body 2, Body 2, Body 2, Body 2",
+            "prompt": "A girl play in a garden, smile on face, photorealistic"
+
+        },
+        {
+            "index":3,
+            "title":"Act 3",
+            "body": "Body 3, Body 3, Body 3, Body 3, Body 3",
+            "prompt": "A family play in a garden, smile on face, photorealistic"
+
+        }
+    ]
+}
