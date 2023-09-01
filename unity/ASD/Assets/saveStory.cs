@@ -26,8 +26,7 @@ public class saveStory : MonoBehaviour
 
     public void SaveStory()
     {
-        Debug.Log("Emotion " + emotionChoice.value.ToString() + ", Level " + levelChoice.value.ToString());
-        //Debug.Log(emotionDropdown.GetComponent<Dropdown>().value);
+        Debug.Log("Emotion: " + emotionChoice.options[emotionChoice.value].text + ", Level: " + levelChoice.options[levelChoice.value].text);       //Debug.Log(emotionDropdown.GetComponent<Dropdown>().value);
                     // levelDropdown.GetComponent<Dropdown>().value.ToString()  );
     
 

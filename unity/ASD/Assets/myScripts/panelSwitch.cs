@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pageSwitch : MonoBehaviour
+public class panelSwitch : MonoBehaviour
 {
 
     public GameObject currentPage, nextPage;
@@ -18,9 +18,15 @@ public class pageSwitch : MonoBehaviour
     
     }
 
-    public void swtichTwoPage()
+    public void togglePanel()
     {
         currentPage.SetActive(!currentPage.activeSelf);
         nextPage.SetActive(!nextPage.activeSelf);
+    }
+
+    public void swtichPanel()
+    {
+        currentPage.SetActive(false);
+        nextPage.SetActive(true);
     }
 }

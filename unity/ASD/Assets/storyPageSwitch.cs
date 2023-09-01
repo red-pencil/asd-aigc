@@ -5,7 +5,7 @@ using TMPro;
 
 public class storyPageSwitch : MonoBehaviour
 {
-    public List<GameObject> imageArray= new List<GameObject>();
+    public List<GameObject> imageArray = new List<GameObject>();
     public int activePageIndex = 0;
     public AllPagesInfo allStorysInfo;
     public GameObject AIScriptOject;
