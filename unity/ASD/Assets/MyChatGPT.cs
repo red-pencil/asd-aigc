@@ -20,13 +20,16 @@ namespace OpenAI
         
         public GameObject promptOject;
         [SerializeField] private string prompt = "";
-        [SerializeField] private string prompt1;
+        [SerializeField] private string promptTemplate;
+
+        public string messageSent, messageReply;
 
         private void Start()
         {
-            prompt1 = promptOject.GetComponent<PromptIO>().promptFull;
-            Debug.Log("GPT: " + prompt1);
-            SendReplyAuto(prompt1);
+            // promptTemplate = promptOject.GetComponent<PromptIO>().promptFull;
+            promptTemplate = "What's your version?";
+            
+            SendReplyAuto(promptTemplate);
             button.onClick.AddListener(SendReply);
         }
 
@@ -43,7 +46,40 @@ namespace OpenAI
             scroll.verticalNormalizedPosition = 0;
         }
 
-        private async void SendReply()
+        private async void SendToGPT()
+        {
+            button.enabled = false;
+            inputField.text = "";
+            inputField.enabled = false;
+            
+            // Complete the instruction
+            var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
+            {
+                Model = "gpt-3.5-turbo-0613",
+                Messages = messages
+            });
+
+            if (completionResponse.Choices != null && completionResponse.Choices.Count > 0)
+            {
+                var message = completionResponse.Choices[0].Message;
+                message.Content = message.Content.Trim();
+                
+                messages.Add(message); 
+                Debug.Log("[Reply] " + message.Content);
+                messageReply = message.Content;
+
+                AppendMessage(message);
+            }
+            else
+            {
+                Debug.LogWarning("No text was generated from this prompt.");
+            }
+
+            button.enabled = true;
+            inputField.enabled = true;
+        }
+
+        private void SendReply()
         {
             var newMessage = new ChatMessage()
             {
@@ -56,36 +92,13 @@ namespace OpenAI
             if (messages.Count == 0) newMessage.Content = prompt + "\n" + inputField.text; 
             
             messages.Add(newMessage);
-            
-            button.enabled = false;
-            inputField.text = "";
-            inputField.enabled = false;
-            
-            // Complete the instruction
-            var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
-            {
-                Model = "gpt-3.5-turbo-0613",
-                Messages = messages
-            });
 
-            if (completionResponse.Choices != null && completionResponse.Choices.Count > 0)
-            {
-                var message = completionResponse.Choices[0].Message;
-                message.Content = message.Content.Trim();
-                
-                messages.Add(message);
-                AppendMessage(message);
-            }
-            else
-            {
-                Debug.LogWarning("No text was generated from this prompt.");
-            }
-
-            button.enabled = true;
-            inputField.enabled = true;
+            Debug.Log("[Sent] " + newMessage.Content);
+            messageSent = newMessage.Content;
+            SendToGPT();
         }
 
-        private async void SendReplyAuto(string promptAuto)
+        private void SendReplyAuto(string promptAuto)
         {
             var newMessage = new ChatMessage()
             {
@@ -98,33 +111,10 @@ namespace OpenAI
             AppendMessage(newMessage);
             
             messages.Add(newMessage);
-            
-            button.enabled = false;
-            inputField.text = "";
-            inputField.enabled = false;
-            
-            // Complete the instruction
-            var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
-            {
-                Model = "gpt-3.5-turbo-0613",
-                Messages = messages
-            });
 
-            if (completionResponse.Choices != null && completionResponse.Choices.Count > 0)
-            {
-                var message = completionResponse.Choices[0].Message;
-                message.Content = message.Content.Trim();
-                
-                messages.Add(message);
-                AppendMessage(message);
-            }
-            else
-            {
-                Debug.LogWarning("No text was generated from this prompt.");
-            }
-
-            button.enabled = true;
-            inputField.enabled = true;
+            Debug.Log("[SentAuto] " + newMessage.Content);
+            messageSent = newMessage.Content;
+            SendToGPT();
         }
     
     }

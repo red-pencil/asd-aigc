@@ -14,7 +14,7 @@ public class PromptIO : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        FindKeyword(promptFull, "ppt");
     }
 
     // Update is called once per frame
@@ -67,6 +67,30 @@ public class PromptIO : MonoBehaviour
         Debug.Log("<<< Profile Read! >>>");
 
         StitchPromptFull();
+        
+    }
+
+    public void FindKeyword(string sourceContent, string targetWord)
+    {
+        List<int> indexArray = new List<int>();
+        int indexCurrent = 0;
+        
+        for (int i = 0; i < sourceContent.Length; i++)
+        {
+            if (sourceContent.Contains(targetWord))
+            {
+                indexCurrent = sourceContent.IndexOf(targetWord, indexCurrent);
+                Debug.Log("Found at " + indexCurrent + sourceContent[indexCurrent]);
+                indexArray.Add(indexCurrent);
+                indexCurrent = indexCurrent + 1;
+            }
+           
+        }
+        
+        foreach (int item in indexArray)
+        {
+            Debug.Log(item);
+        }
         
     }
 
