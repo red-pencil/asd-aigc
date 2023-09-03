@@ -372,6 +372,7 @@
 "Assets/myScripts/spiderRun.cs"
 "Assets/myScripts/spider_run.cs"
 "Assets/myScripts/UnityDalle2API.cs"
+"Assets/ParseReply.cs"
 "Assets/ProfileIO.cs"
 "Assets/PromptIO.cs"
 "Assets/ReadStory.cs"

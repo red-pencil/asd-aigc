@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PromptIO : MonoBehaviour
 {
-    public Template prompt;
     public string promptFull;
+
+    public Template prompt;
     
     void Awake()
     {
@@ -14,7 +15,7 @@ public class PromptIO : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FindKeyword(promptFull, "ppt");
+        // FindKeyword(promptFull, "ppt");
     }
 
     // Update is called once per frame
@@ -75,23 +76,29 @@ public class PromptIO : MonoBehaviour
         List<int> indexArray = new List<int>();
         int indexCurrent = 0;
         
-        for (int i = 0; i < sourceContent.Length; i++)
+        if (sourceContent.Contains(targetWord))
         {
-            if (sourceContent.Contains(targetWord))
+           
+            for (int i = 0; i < sourceContent.Length; )
             {
-                indexCurrent = sourceContent.IndexOf(targetWord, indexCurrent);
-                Debug.Log("Found at " + indexCurrent + sourceContent[indexCurrent]);
-                indexArray.Add(indexCurrent);
-                indexCurrent = indexCurrent + 1;
+                
+                indexCurrent = sourceContent.IndexOf(targetWord, i);
+                
+                if (indexCurrent == -1)
+                {
+                    break;
+                } 
+                else
+                {
+                    Debug.Log("Found at " + indexCurrent);
+                    indexArray.Add(indexCurrent);
+                    i = indexCurrent + 1;
+                }
+                
             }
            
         }
-        
-        foreach (int item in indexArray)
-        {
-            Debug.Log(item);
-        }
-        
+
     }
 
 

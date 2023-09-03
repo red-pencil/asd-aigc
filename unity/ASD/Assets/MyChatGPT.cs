@@ -26,8 +26,8 @@ namespace OpenAI
 
         private void Start()
         {
-            // promptTemplate = promptOject.GetComponent<PromptIO>().promptFull;
-            promptTemplate = "What's your version?";
+            promptTemplate = promptOject.GetComponent<PromptIO>().promptFull;
+            // promptTemplate = "What's your version?";
             
             SendReplyAuto(promptTemplate);
             button.onClick.AddListener(SendReply);
