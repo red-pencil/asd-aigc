@@ -9,7 +9,6 @@ namespace OpenAI
         [SerializeField] private InputField inputField;
         [SerializeField] private Button button;
         [SerializeField] private ScrollRect scroll;
-        
         [SerializeField] private RectTransform sent;
         [SerializeField] private RectTransform received;
 
@@ -23,6 +22,7 @@ namespace OpenAI
         [SerializeField] private string promptTemplate;
 
         public string messageSent, messageReply;
+        public GameObject recordObject;
 
         private void Start()
         {
@@ -67,6 +67,7 @@ namespace OpenAI
                 messages.Add(message); 
                 Debug.Log("[Reply] " + message.Content);
                 messageReply = message.Content;
+                recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("Reply");
 
                 AppendMessage(message);
             }
@@ -95,6 +96,7 @@ namespace OpenAI
 
             Debug.Log("[Sent] " + newMessage.Content);
             messageSent = newMessage.Content;
+            recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("Sent");
             SendToGPT();
         }
 
@@ -114,6 +116,7 @@ namespace OpenAI
 
             Debug.Log("[SentAuto] " + newMessage.Content);
             messageSent = newMessage.Content;
+            recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("Sent");
             SendToGPT();
         }
     
