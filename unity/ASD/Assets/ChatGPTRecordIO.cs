@@ -11,14 +11,17 @@ public class ChatGPTRecordIO : MonoBehaviour
     public GameObject GPTObject;
     public ChatGPTRecords messages;
     public ChatGPTRecord message;
-    private string roleToggle = "";
-    // Start is called before the first frame update
-    void Start()
+    // private string roleToggle = ""; no long user to switch
+
+    void Awake()
     {
         OpenJson();
     }
+    void Start()
+    {
+        
+    }
 
-    // Update is called once per frame
     void Update()
     {
         

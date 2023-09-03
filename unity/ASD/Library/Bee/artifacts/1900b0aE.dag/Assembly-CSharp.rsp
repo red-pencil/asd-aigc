@@ -382,6 +382,7 @@
 "Assets/Samples/OpenAI Unity/0.1.15/DallE/DallE.cs"
 "Assets/saveStory.cs"
 "Assets/SettingIO.cs"
+"Assets/StoryIO.cs"
 "Assets/storyPageSwitch.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"

@@ -22,14 +22,15 @@ namespace OpenAI
         [SerializeField] private string promptTemplate;
 
         public string messageSent, messageReply;
-        public GameObject recordObject;
+        [SerializeField] private GameObject recordObject;
+        [SerializeField] private bool autoSendTemplate;
 
         private void Start()
         {
             promptTemplate = promptOject.GetComponent<PromptIO>().promptFull;
             // promptTemplate = "What's your version?";
             
-            SendReplyAuto(promptTemplate);
+            if (autoSendTemplate) SendReplyAuto(promptTemplate);
             button.onClick.AddListener(SendReply);
         }
 

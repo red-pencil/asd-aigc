@@ -4303,6 +4303,7 @@ MonoBehaviour:
   messageSent: 
   messageReply: 
   recordObject: {fileID: 499436298}
+  autoSendTemplate: 0
 --- !u!114 &499436302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5539,6 +5540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 701750601}
   - component: {fileID: 701750602}
+  - component: {fileID: 701750603}
   m_Layer: 0
   m_Name: Stage 3
   m_TagString: Untagged
@@ -5579,9 +5581,32 @@ MonoBehaviour:
   divider: "\u7B2C"
   indexArray: 
   storyPages: []
-  titleDivider: "\u6545\u4E8B\u6807\u9898"
-  promptDivider: "\u63CF\u8FF0\u56FE\u7247\u7684prompt"
-  bodyDivider: "\u6C14\u6CE1\u6846\u6587\u5B57"
+  titleDivider: "\u6545\u4E8B\u6807\u9898\uFF1A"
+  promptDivider: "\u63CF\u8FF0\u56FE\u7247\u7684prompt\uFF1A"
+  bodyDivider: "\u6C14\u6CE1\u6846\u6587\u5B57\uFF1A"
+--- !u!114 &701750603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701750600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 243114eb5c753c749bd5a332a85dacea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slides:
+    pages: []
+  slide:
+    index: 0
+    title: 
+    body: 
+    prompt: 
+  ParseObject: {fileID: 701750600}
+  titleDivider: "\u6545\u4E8B\u6807\u9898\uFF1A"
+  promptDivider: "\u63CF\u8FF0\u56FE\u7247\u7684prompt\uFF1A"
+  bodyDivider: "\u6C14\u6CE1\u6846\u6587\u5B57\uFF1A"
 --- !u!1 &747526660
 GameObject:
   m_ObjectHideFlags: 0
@@ -14076,6 +14101,18 @@ MonoBehaviour:
       - m_Target: {fileID: 701750602}
         m_TargetAssemblyTypeName: ParseReply, Assembly-CSharp
         m_MethodName: DivideReply
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 701750603}
+        m_TargetAssemblyTypeName: StoryIO, Assembly-CSharp
+        m_MethodName: ReadFromParse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

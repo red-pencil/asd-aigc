@@ -10,7 +10,7 @@ public class ParseReply : MonoBehaviour
     public string divider;
     public List<int> indexArray;
     public List<string> storyPages;
-    public string[][] story2 = new string[3][];
+    // public string[][] story2 = new string[3][];
     public List<string[]> story = new List<string[]>();
     public string titleDivider, promptDivider, bodyDivider;
     
@@ -38,20 +38,35 @@ public class ParseReply : MonoBehaviour
         keyword2Index.ToString() + " " +  
         keyword3Index.ToString());
 
-        Debug.Log("title: " + sourceContent.Substring(keyword1Index+title.Length, keyword2Index-keyword1Index-title.Length));
-        Debug.Log("prompt: " + sourceContent.Substring(keyword2Index+prompt.Length, keyword3Index-keyword2Index-prompt.Length));
-        Debug.Log("body: " + sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length) );
+        if (keyword1Index == -1 || keyword2Index == -1 || keyword3Index == -1)
+        {
+            Debug.Log("Missing Keyword(s)");
 
-        // story.Add(new string[4] {sourceContent.Substring(0, keyword1Index), 
-        //     sourceContent.Substring(keyword1Index, keyword2Index-keyword1Index), 
-        //     sourceContent.Substring(keyword2Index, keyword3Index-keyword2Index),
-        //     sourceContent.Substring(keyword3Index, sourceContent.Length)});
+        }
+        else
+        {
+            Debug.Log("title: " + sourceContent.Substring(keyword1Index+title.Length, keyword2Index-keyword1Index-title.Length) );
+            Debug.Log("prompt: " + sourceContent.Substring(keyword2Index+prompt.Length, keyword3Index-keyword2Index-prompt.Length) );
+            Debug.Log("body: " + sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length) );
+
+
+        }
+      
+        story.Add(new string[4] {sourceContent.Substring(0, keyword1Index), 
+            sourceContent.Substring(keyword1Index+title.Length, keyword2Index-keyword1Index-title.Length), 
+            sourceContent.Substring(keyword2Index+prompt.Length, keyword3Index-keyword2Index-prompt.Length),
+            sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length)});
     
     }
 
     public void DivideReply()
     {
-        reply = replyObject.GetComponent<MyChatGPT>().messageReply;
+        // read from object
+        // reply = replyObject.GetComponent<MyChatGPT>().messageReply;
+        // read from json
+        // replyObject.GetComponent<MyChatGPTIO>().OpenJson;
+        reply = replyObject.GetComponent<ChatGPTRecordIO>().messages.records[0].content;
+        Debug.Log("Full Script:\n" + reply);
         FindKeyword(reply, divider);
         storyPages = new List<string>();
         
@@ -60,8 +75,10 @@ public class ParseReply : MonoBehaviour
             storyPages.Add( reply.Substring( indexArray[i], (indexArray[i+1]-indexArray[i]) ) );
             Debug.Log(storyPages[storyPages.Count-1]);
         }
-        DividePage(storyPages[1], titleDivider, promptDivider, bodyDivider);
-
+            storyPages.Add( reply.Substring( indexArray[^1], ((reply.Length-1)-indexArray[^1]) ) );
+            Debug.Log(storyPages[storyPages.Count-1]);
+        // DividePage(storyPages[1], titleDivider, promptDivider, bodyDivider);
+        // do it in StoryIO
     }
 
     public void FindKeyword(string sourceContent, string targetWord)
@@ -83,7 +100,7 @@ public class ParseReply : MonoBehaviour
                 } 
                 else
                 {
-                    Debug.Log("Found at " + indexCurrent);
+                    // Debug.Log("Found at " + indexCurrent);
                     indexArray.Add(indexCurrent);
                     i = indexCurrent + 1;
                 }
