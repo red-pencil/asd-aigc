@@ -10,12 +10,25 @@ public class storyPageSwitch : MonoBehaviour
     public AllPagesInfo allStorysInfo;
     public GameObject AIScriptOject;
     public GameObject pageTitle, pageBody;
+    [SerializeField] private GameObject storyOject;
+    [SerializeField] private StoryScript storyScript;
     // Start is called before the first frame update
     void Awake()
     {
         
     }
     void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void LoadStory()
     {
         foreach(GameObject image in imageArray)
         {
@@ -24,16 +37,12 @@ public class storyPageSwitch : MonoBehaviour
         
         imageArray[activePageIndex].SetActive(true);
 
-        allStorysInfo = AIScriptOject.GetComponent<ReadStory>().allStorysInfo;
+        // allStorysInfo = AIScriptOject.GetComponent<ReadStory>().allStorysInfo;
+        storyScript = storyOject.GetComponent<StoryIO>().slides;
+
         // pageTitle.GetComponent<TMP_Text>().text = "Demo";
         // Debug.Log(allStorysInfo.pageInfo.Count);
         DisplayTitle(activePageIndex);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void pagePrev()
@@ -70,8 +79,17 @@ public class storyPageSwitch : MonoBehaviour
 
     private void DisplayTitle(int i)
     {
-        pageTitle.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].title;
-        pageBody.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].body;
-
+        // pageTitle.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].title;
+        // pageBody.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].body;
+        if (i == 0 )
+        {
+            pageTitle.GetComponent<TMP_Text>().text = "AIGC";
+            pageBody.GetComponent<TMP_Text>().text = "Generation AI";
+        } else 
+        {
+            pageTitle.GetComponent<TMP_Text>().text = storyScript.pages[i-1].index.ToString() + storyScript.pages[i].title;
+            pageBody.GetComponent<TMP_Text>().text = storyScript.pages[i-1].body;
+        }
+        
     }
 }

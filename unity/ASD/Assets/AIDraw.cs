@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-
 using System.Collections.Generic;
 
 
@@ -17,6 +16,9 @@ namespace OpenAI
         [SerializeField] private Image image;
         public List<Image> imageArray= new List<Image>();
         [SerializeField] private GameObject loadingLabel;
+        [SerializeField] private GameObject storyOject;
+        [SerializeField] private StoryScript storyScript;
+        
 
         private OpenAIApi openai = new OpenAIApi();
 
@@ -24,29 +26,41 @@ namespace OpenAI
         {
             button.onClick.AddListener(SendImageRequest);
 
-            for(int i = 0; i < inputFieldArray.Count; i++)
-            {
-                promptArray.Add(inputFieldArray[i].text);
-            }
+            // for(int i = 0; i < inputFieldArray.Count; i++)
+            // {
+            //     promptArray.Add(inputFieldArray[i].text);
+            // }
         }
 
         private void Update()
         {
-            for (int i = 0; i < inputFieldArray.Count; i++)
+            // for (int i = 0; i < inputFieldArray.Count; i++)
+            // {
+            //     promptArray[i] = inputFieldArray[i].text;
+            // }
+        }
+
+        public void ReadFromJson()
+        {
+            storyScript = storyOject.GetComponent<StoryIO>().slides;
+            foreach (PageScript pageScript in storyScript.pages)
             {
-                promptArray[i] = inputFieldArray[i].text;
+                promptArray.Add(pageScript.prompt);
+                
             }
         }
+
+    
 
         private async void SendImageRequest()
         {
             button.enabled = false;
                 
-            for (int i = 0; i < inputFieldArray.Count; i++)
+            for (int i = 0; i < 6; i++)
             {
                 imageArray[i].sprite = null;
                 
-                inputFieldArray[i].enabled = false;
+                // inputFieldArray[i].enabled = false;
                 GameObject loadingLabelNow = imageArray[i].transform.GetChild(0).gameObject;
                 loadingLabelNow.SetActive(true);
 
@@ -71,6 +85,7 @@ namespace OpenAI
                         var sprite = Sprite.Create(texture, new Rect(0, 0, 256, 256), Vector2.zero, 1f);
                         imageArray[i].sprite = sprite;
                     }
+                    Debug.Log("Draw " + i.ToString() + " : " + promptArray[i]);
                 }
                 else
                 {
@@ -78,7 +93,7 @@ namespace OpenAI
                 }
 
                 
-                inputFieldArray[i].enabled = true;
+                // inputFieldArray[i].enabled = true;
                 loadingLabelNow.SetActive(false);
 
             }

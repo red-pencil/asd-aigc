@@ -87,6 +87,7 @@ public class StoryIO : MonoBehaviour
 
         Debug.Log("<<< Story Saved! >>>");
     }
+
 }
 
 [System.Serializable]

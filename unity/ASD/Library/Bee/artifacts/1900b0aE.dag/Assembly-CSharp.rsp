@@ -355,6 +355,7 @@
 "Assets/InfoPageSwitch.cs"
 "Assets/JsonStory.cs"
 "Assets/loadPromptGPT.cs"
+"Assets/LoadScene.cs"
 "Assets/MyChatGPT.cs"
 "Assets/myScripts/ApiKey.cs"
 "Assets/myScripts/ChatGPTManager.cs"
