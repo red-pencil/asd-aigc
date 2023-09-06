@@ -54,7 +54,7 @@ namespace OpenAI
 
     
 
-        private async void SendImageRequest()
+        public async void SendImageRequest()
         {
             button.enabled = false;
                 
