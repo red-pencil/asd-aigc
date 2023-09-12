@@ -5,22 +5,45 @@ using TMPro;
 
 public class ProfileIO : MonoBehaviour
 {
-    public GameObject nameInputField, ageInputField, genderInputField, likeInputField, dislikeInputField, notesInputField;
-    
-    public ChildrenProfile childProfileArray;
+
+    [Header("Profile Json:")]
+    [SerializeField] private ChildrenProfile childProfileArray;
     // = new ChildrenProfile(); 
 
-
-    // Start is called before the first frame update
+    [Header("Input:")]
+    [SerializeField] private GameObject nameInputField;
+    [SerializeField] private GameObject ageInputField, genderInputField, likeInputField, dislikeInputField, notesInputField;
+    
+    [SerializeField] private bool autoSave = false;
+    [SerializeField] private int i = 0;
     void Start()
     {
         OpenProfileJson();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnGUI()
+    {
+        autoSave = GUI.Toggle(new Rect(100,100,100,100), autoSave, "Auto Save");
+        GUI.Button (new Rect (25, 25, 100, 30), "Button");
+    }
+
+    public void ToggleAutoSave()
+    {
+        autoSave = !autoSave;
+    }
+
+    public void AutoSaveJson()
+    {
+        if (autoSave) 
+        {
+            ReadFromInput();
+            SaveProfileJson();
+        }
     }
 
     public void ReadFromInput()
@@ -35,14 +58,14 @@ public class ProfileIO : MonoBehaviour
         childProfileItem.dislike = dislikeInputField.GetComponent<TMP_InputField>().text;
         childProfileItem.notes = notesInputField.GetComponent<TMP_InputField>().text;
 
-        childProfileArray.childProfile.Add(childProfileItem);
+        childProfileArray.childProfile.Insert(0, childProfileItem);
 
         Debug.Log("<<< Read From Input! >>>");
     }
 
     public void WriteToInput()
     {
-        int i = 0;
+        if (i >= childProfileArray.childProfile.Count-1) i = 0;
 
         nameInputField.GetComponent<TMP_InputField>().text = childProfileArray.childProfile[i].name;
         ageInputField.GetComponent<TMP_InputField>().text = childProfileArray.childProfile[i].age.ToString();
@@ -50,6 +73,8 @@ public class ProfileIO : MonoBehaviour
         likeInputField.GetComponent<TMP_InputField>().text = childProfileArray.childProfile[i].gender;
         dislikeInputField.GetComponent<TMP_InputField>().text = childProfileArray.childProfile[i].dislike;
         notesInputField.GetComponent<TMP_InputField>().text = childProfileArray.childProfile[i].notes;
+
+        i++;
 
         Debug.Log("<<< Write to Field! >>>");
     }

@@ -101,7 +101,8 @@ namespace OpenAI
             SendToGPT();
         }
 
-        public void SendReplyAuto(string promptAuto)
+        // public void SendReplyAuto(string promptAuto = "")
+        public void SendReplyAuto()
         {
             var newMessage = new ChatMessage()
             {
@@ -109,7 +110,11 @@ namespace OpenAI
                 Content = inputField.text
             };
             
-            if (messages.Count == 0) newMessage.Content = promptAuto; 
+            if (messages.Count == 0) 
+            {
+                newMessage.Content = promptTemplate;
+                
+            } 
 
             AppendMessage(newMessage);
             

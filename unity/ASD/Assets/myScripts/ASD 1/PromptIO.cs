@@ -17,7 +17,8 @@ public class PromptIO : MonoBehaviour
         if (autoSendTemplate)
         {
             AIObject.GetComponent<MyChatGPT>().promptTemplate = promptFull;
-            AIObject.GetComponent<MyChatGPT>().SendReplyAuto(promptFull);
+           // AIObject.GetComponent<MyChatGPT>().SendReplyAuto(promptFull);
+           AIObject.GetComponent<MyChatGPT>().SendReplyAuto();
         }
     }
     // Start is called before the first frame update
