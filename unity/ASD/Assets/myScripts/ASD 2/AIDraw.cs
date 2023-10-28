@@ -21,6 +21,8 @@ namespace OpenAI
         [SerializeField] private GameObject storyOject;
         [SerializeField] private StoryScript storyScript;
 
+        [SerializeField] private GameObject faceswapOject;
+
         private int pageCount = 0;
         
 
@@ -72,7 +74,7 @@ namespace OpenAI
                 var response = await openai.CreateImage(new CreateImageRequest
                 {
                     Prompt = promptArray[i],
-                    Size = ImageSize.Size256
+                    Size = ImageSize.Size512
                 });
 
                 if (response.Data != null && response.Data.Count > 0)
@@ -87,10 +89,14 @@ namespace OpenAI
 
                         Texture2D texture = new Texture2D(2, 2);
                         texture.LoadImage(request.downloadHandler.data);
-                        var sprite = Sprite.Create(texture, new Rect(0, 0, 256, 256), Vector2.zero, 1f);
+
+                        
+
+                        var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), Vector2.zero, 1f);
                         imageArray[i].sprite = sprite;
 
                         SaveTextureAsPNG(texture, i);
+                        faceswapOject.GetComponent<FaceSwap>().FunsionFaceInput(texture, i);
                     }
                     Debug.Log("Draw " + i.ToString() + " : " + promptArray[i]);
 
@@ -112,7 +118,7 @@ namespace OpenAI
         public static void SaveTextureAsPNG(Texture2D _texture, int order, string _fullPath = "./Assets/MyData/AIGC/")
         {
             byte[] _bytes =_texture.EncodeToPNG();
-            System.IO.File.WriteAllBytes(_fullPath + DateTime.Now.ToString("yyyyMMddhhmm") + order.ToString() + ".PNG", _bytes);
+            System.IO.File.WriteAllBytes(_fullPath + DateTime.Now.ToString("yyyyMMddhhmm") + "aigc" + order.ToString() + ".PNG", _bytes);
             Debug.Log(_bytes.Length/1024  + "Kb was saved as: " + _fullPath + DateTime.Now.ToString());
         }
     }
