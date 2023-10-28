@@ -20,6 +20,8 @@ namespace OpenAI
         [SerializeField] private GameObject loadingLabel;
         [SerializeField] private GameObject storyOject;
         [SerializeField] private StoryScript storyScript;
+
+        private int pageCount = 0;
         
 
         private OpenAIApi openai = new OpenAIApi();
@@ -50,6 +52,7 @@ namespace OpenAI
                 promptArray.Add(pageScript.prompt);
                 
             }
+            pageCount = promptArray.Count;
         }
 
     
@@ -58,7 +61,7 @@ namespace OpenAI
         {
             button.enabled = false;
                 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < pageCount; i++)
             {
                 imageArray[i].sprite = null;
                 

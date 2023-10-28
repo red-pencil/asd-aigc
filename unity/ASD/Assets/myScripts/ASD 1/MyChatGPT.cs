@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 namespace OpenAI
 {
@@ -23,7 +24,8 @@ namespace OpenAI
 
         public string messageSent, messageReply;
         [SerializeField] private GameObject recordObject;
-        [SerializeField] private bool autoSendTemplate;
+        // [SerializeField] private bool autoSendTemplate;
+
 
         private void Start()
         {
@@ -53,29 +55,41 @@ namespace OpenAI
             inputField.text = "";
             inputField.enabled = false;
             
-            // Complete the instruction
-            var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
+            try
             {
-                Model = "gpt-3.5-turbo-0613",
-                Messages = messages
-            });
+                // Complete the instruction
+                var completionResponse = await openai.CreateChatCompletion(new CreateChatCompletionRequest()
+                {
+                    Model = "gpt-3.5-turbo-0613",
+                    Messages = messages
+                });
 
-            if (completionResponse.Choices != null && completionResponse.Choices.Count > 0)
-            {
-                var message = completionResponse.Choices[0].Message;
-                message.Content = message.Content.Trim();
-                
-                messages.Add(message); 
-                Debug.Log("[Reply] " + message.Content);
-                messageReply = message.Content;
-                recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("Reply");
+                if (completionResponse.Choices != null && completionResponse.Choices.Count > 0)
+                {
+                    var message = completionResponse.Choices[0].Message;
+                    message.Content = message.Content.Trim();
+                    
+                    messages.Add(message); 
+                    Debug.Log("[Reply] " + message.Content);
+                    messageReply = message.Content;
+                    recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("Reply");
 
-                AppendMessage(message);
+                    AppendMessage(message);
+                }
+                else
+                {
+                    Debug.LogWarning("No text was generated from this prompt.");
+                }
+
             }
-            else
+            catch(Exception e)
             {
-                Debug.LogWarning("No text was generated from this prompt.");
+                Console.WriteLine(e.Message);
+                Debug.Log("error!");
+                Debug.Log(e.Message);
             }
+
+            
 
             button.enabled = true;
             inputField.enabled = true;
@@ -122,7 +136,26 @@ namespace OpenAI
 
             Debug.Log("[SentAuto] " + newMessage.Content);
             messageSent = newMessage.Content;
-            recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("Sent");
+            recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("SentAuto");
+            SendToGPT();
+        }
+
+        public void SendReplyInput(string inputText)
+        {
+            var newMessage = new ChatMessage()
+            {
+                Role = "user",
+                Content = inputText
+            };
+
+
+            AppendMessage(newMessage);
+            
+            messages.Add(newMessage);
+
+            Debug.Log("[SentInput] " + newMessage.Content);
+            messageSent = newMessage.Content;
+            recordObject.GetComponent<ChatGPTRecordIO>().ReadFromAI("SentInput");
             SendToGPT();
         }
     

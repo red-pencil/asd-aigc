@@ -6,6 +6,7 @@ using OpenAI;
 public class PromptIO : MonoBehaviour
 {
     public string promptFull;
+    public string promptEasy;
 
     public Template prompt;
     
@@ -35,7 +36,7 @@ public class PromptIO : MonoBehaviour
 
     public void OpenTemplateJson()
     {
-        string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/Template.json").ToString();
+        string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/Template2.json").ToString();
         prompt = JsonUtility.FromJson<Template>(jsonContent);
 
         Debug.Log("<<< Template Read! >>>");

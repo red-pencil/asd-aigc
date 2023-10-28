@@ -87,7 +87,7 @@ public class storyPageSwitch : MonoBehaviour
             pageBody.GetComponent<TMP_Text>().text = "Generation AI";
         } else 
         {
-            pageTitle.GetComponent<TMP_Text>().text = storyScript.pages[i-1].index.ToString() + storyScript.pages[i].title;
+            pageTitle.GetComponent<TMP_Text>().text = (storyScript.pages[i-1].index + 1).ToString() + storyScript.pages[i-1].title;
             pageBody.GetComponent<TMP_Text>().text = storyScript.pages[i-1].body;
         }
         

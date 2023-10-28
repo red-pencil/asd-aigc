@@ -53,9 +53,9 @@ public class ChatGPTRecordIO : MonoBehaviour
             message.role = "Reply";
             message.content = GPTObject.GetComponent<MyChatGPT>().messageReply;
 
-        } else if (type == "Sent")
+        } else if (type.IndexOf("Sent") != -1)
         {
-            message.role = "Sent";
+            message.role = type;
             message.content = GPTObject.GetComponent<MyChatGPT>().messageSent;
         } else
         {
