@@ -16,7 +16,7 @@ public class GPTLoading : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!initial)
+        if (true)
         {
             if (AIObject.GetComponent<ChatGPTRecordIO>().message.role == "Reply")
             {

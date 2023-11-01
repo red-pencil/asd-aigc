@@ -21,7 +21,8 @@ namespace OpenAI
         [SerializeField] private GameObject storyOject;
         [SerializeField] private StoryScript storyScript;
 
-        [SerializeField] private GameObject faceswapOject;
+        [SerializeField] private GameObject faceswapObject;
+        [SerializeField] private GameObject pageObject;
 
         private int pageCount = 0;
         
@@ -57,7 +58,54 @@ namespace OpenAI
             pageCount = promptArray.Count;
         }
 
-    
+        public async void SendRequest(int i)
+        {
+            imageArray[i].sprite = null;
+                
+            // inputFieldArray[i].enabled = false;
+            GameObject loadingLabelNow = imageArray[i].transform.GetChild(0).gameObject;
+            loadingLabelNow.SetActive(true);
+
+            var response = await openai.CreateImage(new CreateImageRequest
+            {
+                Prompt = promptArray[i],
+                Size = ImageSize.Size512
+            });
+
+            if (response.Data != null && response.Data.Count > 0)
+            {
+                using(var request = new UnityWebRequest(response.Data[0].Url))
+                {
+                    request.downloadHandler = new DownloadHandlerBuffer();
+                    request.SetRequestHeader("Access-Control-Allow-Origin", "*");
+                    request.SendWebRequest();
+
+                    while (!request.isDone) await Task.Yield();
+
+                    Texture2D texture = new Texture2D(2, 2);
+                    texture.LoadImage(request.downloadHandler.data);
+
+                    
+
+                    var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), Vector2.zero, 1f);
+                    imageArray[i].sprite = sprite;
+
+                    SaveTextureAsPNG(texture, i);
+                    faceswapObject.GetComponent<FaceSwap>().FunsionFaceInput(texture, i);
+                }
+                Debug.Log("Draw " + i.ToString() + " : " + promptArray[i]);
+
+            }
+            else
+            {
+                Debug.LogWarning("No image was created from this prompt.");
+            }
+
+            
+            // inputFieldArray[i].enabled = true;
+            loadingLabelNow.SetActive(false);
+        }
+
 
         public async void SendImageRequest()
         {
@@ -96,7 +144,7 @@ namespace OpenAI
                         imageArray[i].sprite = sprite;
 
                         SaveTextureAsPNG(texture, i);
-                        faceswapOject.GetComponent<FaceSwap>().FunsionFaceInput(texture, i);
+                        faceswapObject.GetComponent<FaceSwap>().FunsionFaceInput(texture, i);
                     }
                     Debug.Log("Draw " + i.ToString() + " : " + promptArray[i]);
 
@@ -113,6 +161,11 @@ namespace OpenAI
             }
 
             button.enabled = true;
+        }
+
+        public void RefreshRequest()
+        {
+            SendRequest(pageObject.GetComponent<storyPageSwitch>().activePageIndex - 1);
         }
 
         public static void SaveTextureAsPNG(Texture2D _texture, int order, string _fullPath = "./Assets/MyData/AIGC/")

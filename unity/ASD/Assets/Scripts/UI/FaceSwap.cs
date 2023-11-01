@@ -116,6 +116,7 @@ public class FaceSwap : MonoBehaviour
         globalIndex = index;
         
         Debug.Log("swap begin");
+        resultImgArray[globalIndex].texture = inputTexture;
 
         //序列化字典内容到json格式 上传到百度ai
         Dictionary<string,object> dict = new Dictionary<string,object>();
@@ -126,9 +127,8 @@ public class FaceSwap : MonoBehaviour
         Texture2D decopmpresseTex = inputTexture.DeCompress();
         //
 
-        Debug.Log("stop1");
+
         imgTemplate.image = FaceMerge.Instance.Texture2DToBase64(decopmpresseTex);
-        Debug.Log("stop2");
         imgTemplate.image_type = "BASE64";
         imgTemplate.quality_control = "NONE";
         dict.Add("image_template", imgTemplate);
@@ -192,7 +192,8 @@ public class FaceSwap : MonoBehaviour
             resultImgArray[globalIndex].texture = FaceMerge.Instance.Base64ToTexture2D(512, 512, ImgBase64);
             Debug.Log("result count=" + globalIndex.ToString());
             
-            
+        } else
+        {
             
         }
     }
