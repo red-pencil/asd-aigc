@@ -69,7 +69,8 @@ namespace OpenAI
             var response = await openai.CreateImage(new CreateImageRequest
             {
                 Prompt = promptArray[i],
-                Size = ImageSize.Size512
+                Size = ImageSize.Size512,
+                Model = "dall-e-2"
             });
 
             if (response.Data != null && response.Data.Count > 0)

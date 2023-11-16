@@ -216,6 +216,7 @@ namespace OpenAI
     #region Images API Data Types
     public class CreateImageRequestBase
     {
+        public string Model;  //leon
         public int? N { get; set; } = 1;
         public string Size { get; set; } = ImageSize.Size1024;
         public string ResponseFormat { get; set; } = ImageResponseFormat.Url;

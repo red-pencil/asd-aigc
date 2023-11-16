@@ -309,6 +309,8 @@ namespace OpenAI
             var path = $"{BASE_PATH}/images/edits";
 
             var form = new List<IMultipartFormSection>();
+            form.AddValue(request.Model, "model"); //leon
+
             form.AddFile(request.Image, "image", "image/png");
             form.AddFile(request.Mask, "mask", "image/png");
             form.AddValue(request.Prompt, "prompt");
@@ -329,6 +331,8 @@ namespace OpenAI
             var path = $"{BASE_PATH}/images/variations";
             
             var form = new List<IMultipartFormSection>();
+            form.AddValue(request.Model, "model"); //leon
+
             form.AddFile(request.Image, "image", "image/png");
             form.AddValue(request.N, "n");
             form.AddValue(request.Size, "size");
