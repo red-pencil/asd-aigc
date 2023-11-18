@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StoryIO : MonoBehaviour
 {
+    public bool readTemplate = false;
     public StoryScript slides;
     public PageScript slide;
     public GameObject ParseObject;
@@ -75,10 +76,23 @@ public class StoryIO : MonoBehaviour
 
     public void OpenJson()
     {
-        string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/StoryScript.json").ToString();
-        slides = JsonUtility.FromJson<StoryScript>(jsonContent);
+        if (readTemplate)
+        {
+            string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/StoryTemplateSample.json").ToString();
+            slides = JsonUtility.FromJson<StoryScript>(jsonContent);
 
-        Debug.Log("<<< Story Read! >>>");
+            Debug.Log("<<< Story Template Sample Read! >>>");
+
+        }
+        else
+        {
+            string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/StoryScript.json").ToString();
+            slides = JsonUtility.FromJson<StoryScript>(jsonContent);
+
+            Debug.Log("<<< Story Read! >>>");
+
+        }
+        
     }
 
     public void SaveJson()
@@ -102,4 +116,6 @@ public class PageScript {
     public string title;
     public string body;
     public string prompt;
+    public bool template;
+    public string templatePath;
 }

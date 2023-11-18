@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows.WebCam;
+using System.Threading.Tasks;
 
 public class FaceSwap : MonoBehaviour
 {
@@ -137,7 +138,7 @@ public class FaceSwap : MonoBehaviour
         imgTarget.image = FaceMerge.Instance.Texture2DToBase64(curTex);
         imgTarget.image_type = "BASE64";
         imgTarget.quality_control = "NONE";
-        dict.Add("image_target",imgTarget);
+        dict.Add("image_target", imgTarget);
         dict.Add("merge_degree", "COMPLETE");
 
         string json = JsonMapper.ToJson(dict); // 反序列化用了 litjson的工具，使用JsonUtility序列化dict会是空的
@@ -182,6 +183,7 @@ public class FaceSwap : MonoBehaviour
     {
         Debug.Log(info);
         Response response = JsonMapper.ToObject<Response>(info);
+        // while (response.error_code != 0) await Task.Yield();
         if (response.error_code == 0) // 0 表示成功融合图片
         {
             Debug.Log(response.error_msg);
@@ -189,8 +191,30 @@ public class FaceSwap : MonoBehaviour
             string ImgBase64 = response.result.merge_image;
 
             // resultImgArray[globalIndex].texture = FaceMerge.Instance.Base64ToTexture2D(targetFusionTex.width, targetFusionTex.height, ImgBase64);
-            resultImgArray[globalIndex].texture = FaceMerge.Instance.Base64ToTexture2D(512, 512, ImgBase64);
-            Debug.Log("result count=" + globalIndex.ToString());
+            resultImgArray[resultCount].texture = FaceMerge.Instance.Base64ToTexture2D(512, 512, ImgBase64);
+            Debug.Log("result count =" + resultCount.ToString());
+            resultCount = resultCount + 1;
+            
+        } 
+        else
+        {
+            
+        }
+    }
+
+    private void OnFaceMergeArrayIndex(string info, int index)
+    {
+        Debug.Log(info);
+        Response response = JsonMapper.ToObject<Response>(info);
+        if (response.error_code == 0) // 0 表示成功融合图片
+        {
+            Debug.Log(response.error_msg);
+            string ImgBase64 = response.result.merge_image;
+
+            // resultImgArray[globalIndex].texture = FaceMerge.Instance.Base64ToTexture2D(targetFusionTex.width, targetFusionTex.height, ImgBase64);
+            resultImgArray[index].texture = FaceMerge.Instance.Base64ToTexture2D(512, 512, ImgBase64);
+            Debug.Log("result count=" + index.ToString());
+            resultCount = resultCount + 1;
             
         } else
         {
