@@ -86,7 +86,7 @@ public class TemplateDraw : MonoBehaviour
         foreach (PageScript pageScript in storyScript.pages)
         {
             pathArray.Add(pageScript.prompt);
-            templateOrder = int.Parse(pageScript.prompt);
+            templateOrder = int.Parse(pageScript.templatePath);
             
         }
         pageCount = pathArray.Count;

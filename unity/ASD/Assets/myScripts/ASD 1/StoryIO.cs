@@ -33,7 +33,10 @@ public class StoryIO : MonoBehaviour
         keyword2Index.ToString() + " " +  
         keyword3Index.ToString());
 
-        if (keyword1Index == -1 || keyword2Index == -1 || keyword3Index == -1)
+        // if (keyword2Index == -1) keyword2Index = keyword3Index - 3;
+
+        // if (keyword1Index == -1 || keyword2Index == -1 || keyword3Index == -1)
+        if (keyword1Index == -1 || keyword3Index == -1)
         {
             Debug.Log("Missing Keyword(s)");
             return ("", "", "", "");
@@ -45,6 +48,38 @@ public class StoryIO : MonoBehaviour
             Debug.Log("body: " + sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length) );
 
             return (sourceContent.Substring(0, keyword1Index), sourceContent.Substring(keyword1Index+title.Length, keyword2Index-keyword1Index-title.Length), sourceContent.Substring(keyword2Index+prompt.Length, keyword3Index-keyword2Index-prompt.Length), sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length));
+
+        }
+      
+        
+    
+    }
+
+    public (string, string, string, string) DividePage2Key(string sourceContent, string title, string prompt, string body)
+    {
+        
+        int keyword1Index, keyword2Index, keyword3Index;
+        keyword1Index = sourceContent.IndexOf(title);
+        keyword2Index = sourceContent.IndexOf(prompt);
+        keyword3Index = sourceContent.IndexOf(body);
+
+        Debug.Log(keyword1Index.ToString() + " " + 
+        keyword2Index.ToString() + " " +  
+        keyword3Index.ToString());
+
+        if (keyword1Index == -1 || keyword3Index == -1)
+        {
+            Debug.Log("Missing Keyword(s)");
+            return ("", "", "", "");
+        }
+        else
+        {
+            Debug.Log("title: " + sourceContent.Substring(keyword1Index+title.Length, keyword3Index-keyword1Index-title.Length) );
+        
+            Debug.Log("body: " + sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length) );
+
+            return (sourceContent.Substring(0, keyword1Index), sourceContent.Substring(keyword1Index+title.Length, keyword3Index-keyword1Index-title.Length), sourceContent.Substring(0,1), sourceContent.Substring(keyword3Index+body.Length, sourceContent.Length-keyword3Index-body.Length));
+
         }
       
         
@@ -61,10 +96,12 @@ public class StoryIO : MonoBehaviour
             slide = new PageScript();
             slide.index = i;
             string leftover;
-            (leftover, slide.title, slide.prompt, slide.body) = DividePage(storyOriginal[i], titleDivider, promptDivider, bodyDivider);
+            (leftover, slide.title, slide.prompt, slide.body) = DividePage2Key(storyOriginal[i], titleDivider, promptDivider, bodyDivider);
             // slide.title = storyOriginal[i][1];
             // slide.prompt = storyOriginal[i][2];
             // slide.body = storyOriginal[i][3];
+
+            slide.templatePath = 0.ToString();
 
             slides.pages.Add(slide);
         }

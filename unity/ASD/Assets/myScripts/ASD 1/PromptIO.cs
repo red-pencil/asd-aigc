@@ -8,13 +8,16 @@ public class PromptIO : MonoBehaviour
     public string promptFull;
     public string promptEasy;
 
-    public Template prompt;
+    public PromptTemplate prompt;
+    public bool usingStoryTemplate;
+    public StoryTemplates storyTemplates;
+    public string promptStoryTemplate;
     
     public GameObject AIObject;
     [SerializeField] private bool autoSendTemplate;
     void Awake()
     {
-        OpenTemplateJson();
+        OpenPromptTemplateJson();
         if (autoSendTemplate)
         {
             AIObject.GetComponent<MyChatGPT>().promptTemplate = promptFull;
@@ -34,16 +37,52 @@ public class PromptIO : MonoBehaviour
         
     }
 
-    public void OpenTemplateJson()
+    public void OpenPromptTemplateJson()
     {
-        string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/Template2.json").ToString();
-        prompt = JsonUtility.FromJson<Template>(jsonContent);
+        string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/PromptTemplate.json").ToString();
+        prompt = JsonUtility.FromJson<PromptTemplate>(jsonContent);
 
-        Debug.Log("<<< Template Read! >>>");
+        Debug.Log("<<< Prompt Template Read! >>>");
         Debug.Log(jsonContent);
         
-        StitchPromptFull();
+        if (usingStoryTemplate)
+        {
+            StitchPersonalInfo();
+        }
+        else
+        {
+            StitchPromptFull();
+        }
         
+        
+    }
+
+    public void OpenStoryTemplateJson()
+    {
+        storyTemplates = JsonUtility.FromJson<StoryTemplates>(System.IO.File.ReadAllText("./Assets/MyData/TemplateLib.json").ToString());
+        promptStoryTemplate = "";
+        for(int i = 0; i < storyTemplates.templateLib.Count; i++ )
+        {
+            StoryTemplate storyTemplate =  new StoryTemplate();
+            storyTemplate = storyTemplates.templateLib[i];
+            promptStoryTemplate = promptStoryTemplate + "Slide " + (storyTemplate.templateIndex + 1).ToString() + ": " + storyTemplate.title + ". \n" + "Content: " + storyTemplate.body + "\n\n";
+
+        }
+    }
+
+    public string StitchPersonalInfo()
+    {
+        string promptPersonalInfo;
+        promptPersonalInfo = prompt.basicInfoStart + prompt.age + prompt.age_gender + prompt.gender + prompt.gender_language + prompt.language + prompt.language_like + prompt.like + prompt.like_disklike + prompt.dislike + prompt.disklike_keyword + prompt.keyword + prompt.keyword_emotion1 + prompt.emotion1 + prompt.emotion1_emotion2 + prompt.emotion2 + prompt.emotion2_reaction + prompt.reaction + prompt.basicInfoEnd;
+        promptPersonalInfo = promptPersonalInfo + "\n\n";
+        string promptPreamble = "Now, I want you to do the following: I will give you the basic info of the children and I will give you the story you have created. I want you to personalize the selected story with the information I provided. Remember not to make any significant changes to the storyline. \n Below is the info of the kid:\n" ;
+
+        OpenStoryTemplateJson();
+    
+        promptFull = promptPreamble + promptPersonalInfo + promptStoryTemplate;
+        Debug.Log("Full Prompt:\n" + promptFull);
+
+        return promptFull;
     }
 
     public string StitchPromptFull()
@@ -58,9 +97,9 @@ public class PromptIO : MonoBehaviour
 
     public void OpenAllJson()
     {
-        prompt = JsonUtility.FromJson<Template>(System.IO.File.ReadAllText("./Assets/MyData/Template.json").ToString());
+        prompt = JsonUtility.FromJson<PromptTemplate>(System.IO.File.ReadAllText("./Assets/MyData/PromptTemplate.json").ToString());
 
-        Debug.Log("<<< Template Read! >>>");
+        Debug.Log("<<< Prompt Template Read! >>>");
         
 
         StorySetting setting = JsonUtility.FromJson<StorySetting>(System.IO.File.ReadAllText("./Assets/MyData/Setting.json").ToString());
@@ -123,7 +162,7 @@ public class Prompt
 
 
 [System.Serializable]
-public class Template
+public class PromptTemplate
 {
     public string level_1, basicInfoStart, age, age_gender, gender, gender_language, language, language_like, like, like_disklike, dislike, disklike_keyword, keyword, keyword_emotion1, emotion1, emotion1_emotion2, emotion2, emotion2_reaction, reaction, basicInfoEnd, format, level_2, level_3;
 }

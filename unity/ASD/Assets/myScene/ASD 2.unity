@@ -4583,7 +4583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243114eb5c753c749bd5a332a85dacea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readTemplate: 1
+  readTemplate: 0
   slides:
     pages: []
   slide:
