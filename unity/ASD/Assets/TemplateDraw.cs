@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 public class TemplateDraw : MonoBehaviour
 {
     public List<string> pathArray = new List<string>();
-    public int pageCount = 0;
+    public int pageCount = 6;
     public int templateOrder = 0;
 
     public List<Image> imageArray = new List<Image>();
     public List<RawImage> rawimgArray = new List<RawImage>();
-    public int pageTotal = 5;
+    public int pageTotal = 6;
 
     [SerializeField] private GameObject storyObject;
     [SerializeField] private StoryScript storyScript;
@@ -86,9 +86,9 @@ public class TemplateDraw : MonoBehaviour
         foreach (PageScript pageScript in storyScript.pages)
         {
             pathArray.Add(pageScript.prompt);
-            templateOrder = int.Parse(pageScript.templatePath);
+            // templateOrder = int.Parse(pageScript.templatePath);
             
         }
-        pageCount = pathArray.Count;
+        // pageCount = pathArray.Count;
     }
 }

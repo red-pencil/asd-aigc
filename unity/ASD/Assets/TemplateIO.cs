@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class TemplateIO : MonoBehaviour
 {
-    public StoryTemplates storyArray;
-    public StoryTemplate story;
+    public StoryTemplateArray storyArray;
+    public StoryTemplateItem storyItem;
+    public StoryTemplatePage storyPage;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class TemplateIO : MonoBehaviour
     public void OpenJson()
     {
         string jsonContent = System.IO.File.ReadAllText("./Assets/MyData/TemplateLib.json").ToString();
-        storyArray = JsonUtility.FromJson<StoryTemplates>(jsonContent);
+        storyArray= JsonUtility.FromJson<StoryTemplateArray>(jsonContent);
 
         Debug.Log("<<< Template Read! >>>");
     }
@@ -36,15 +37,25 @@ public class TemplateIO : MonoBehaviour
     }
 }
 
+
 [System.Serializable]
-public class StoryTemplates {
-    public List<StoryTemplate> templateLib = new List<StoryTemplate>();
+public class StoryTemplateArray {
+    public List<StoryTemplateItem> library = new List<StoryTemplateItem>();
+
+}
+[System.Serializable]
+public class StoryTemplateItem {
+    public int itemIndex;
+    public int emotionIndex;
+    public string title;
+    public string intro;
+    public List<StoryTemplatePage> content = new List<StoryTemplatePage>();
 }
 
 [System.Serializable]
-public class StoryTemplate {
+public class StoryTemplatePage {
     public int emotionIndex;
-    public int templateIndex;
+    public int pageIndex;
     public string title;
     public string body;
     public string folder;

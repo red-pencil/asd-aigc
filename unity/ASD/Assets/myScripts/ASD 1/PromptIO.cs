@@ -10,7 +10,8 @@ public class PromptIO : MonoBehaviour
 
     public PromptTemplate prompt;
     public bool usingStoryTemplate;
-    public StoryTemplates storyTemplates;
+    public int indexTemplate = 0;
+    public StoryTemplateArray storyTemplateArray;
     public string promptStoryTemplate;
     
     public GameObject AIObject;
@@ -21,8 +22,8 @@ public class PromptIO : MonoBehaviour
         if (autoSendTemplate)
         {
             AIObject.GetComponent<MyChatGPT>().promptTemplate = promptFull;
-           // AIObject.GetComponent<MyChatGPT>().SendReplyAuto(promptFull);
-           AIObject.GetComponent<MyChatGPT>().SendReplyAuto();
+            // AIObject.GetComponent<MyChatGPT>().SendReplyAuto(promptFull);
+            AIObject.GetComponent<MyChatGPT>().SendReplyAuto();
         }
     }
     // Start is called before the first frame update
@@ -57,15 +58,17 @@ public class PromptIO : MonoBehaviour
         
     }
 
-    public void OpenStoryTemplateJson()
+    public void OpenStoryTemplateJson(int openIndex = 0)
     {
-        storyTemplates = JsonUtility.FromJson<StoryTemplates>(System.IO.File.ReadAllText("./Assets/MyData/TemplateLib.json").ToString());
+        string temp = System.IO.File.ReadAllText("./Assets/MyData/TemplateLib.json").ToString();
+        storyTemplateArray = JsonUtility.FromJson<StoryTemplateArray>(temp);
         promptStoryTemplate = "";
-        for(int i = 0; i < storyTemplates.templateLib.Count; i++ )
+        
+        for(int i = 0; i < storyTemplateArray.library[openIndex].content.Count; i++ )
         {
-            StoryTemplate storyTemplate =  new StoryTemplate();
-            storyTemplate = storyTemplates.templateLib[i];
-            promptStoryTemplate = promptStoryTemplate + "Slide " + (storyTemplate.templateIndex + 1).ToString() + ": " + storyTemplate.title + ". \n" + "Content: " + storyTemplate.body + "\n\n";
+            StoryTemplatePage storyTemplatePage =  new StoryTemplatePage();
+            storyTemplatePage = storyTemplateArray.library[openIndex].content[i];
+            promptStoryTemplate = promptStoryTemplate + "Slide " + (storyTemplatePage.pageIndex + 1).ToString() + ": " + storyTemplatePage.title + ". \n" + "Content: " + storyTemplatePage.body + "\n\n";
 
         }
     }
@@ -77,7 +80,7 @@ public class PromptIO : MonoBehaviour
         promptPersonalInfo = promptPersonalInfo + "\n\n";
         string promptPreamble = "Now, I want you to do the following: I will give you the basic info of the children and I will give you the story you have created. I want you to personalize the selected story with the information I provided. Remember not to make any significant changes to the storyline. \n Below is the info of the kid:\n" ;
 
-        OpenStoryTemplateJson();
+        OpenStoryTemplateJson(indexTemplate);
     
         promptFull = promptPreamble + promptPersonalInfo + promptStoryTemplate;
         Debug.Log("Full Prompt:\n" + promptFull);
