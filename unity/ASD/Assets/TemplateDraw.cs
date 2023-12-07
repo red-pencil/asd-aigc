@@ -18,6 +18,9 @@ public class TemplateDraw : MonoBehaviour
     [SerializeField] private GameObject storyObject;
     [SerializeField] private StoryScript storyScript;
     [SerializeField] private GameObject faceswapObject;
+    [SerializeField] private GameObject pageSwitchObject;
+
+    [SerializeField] private int currentPageIndex;
 
 
     // Start is called before the first frame update
@@ -29,7 +32,7 @@ public class TemplateDraw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        currentPageIndex = pageSwitchObject.GetComponent<storyPageSwitch>().activePageIndex - 1;
     }
 
 
@@ -78,6 +81,27 @@ public class TemplateDraw : MonoBehaviour
         // rawimage texture
 
         
+    }
+
+    public void SwapEmotion(int emotionIndex)
+    {
+        int i = currentPageIndex;
+        Texture2D texture = new Texture2D(2, 2);
+
+        byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateOrder + '/' + i.ToString() + ".png");
+        Debug.Log("Read Photo:" + i.ToString() );
+
+        texture.LoadImage(imgBytes);
+
+        Debug.Log("Swap Begin" + i.ToString() );
+        faceswapObject.GetComponent<FaceSwap>().FunsionFaceInputEmotion(texture, i, emotionIndex);
+        Debug.Log("Swap End" + i.ToString() );
+        Debug.Log(faceswapObject.GetComponent<FaceSwap>().resultCount);
+        Debug.Log(i);
+       
+        Debug.Log("Finish");
+
+
     }
 
     public void ReadFromJson()

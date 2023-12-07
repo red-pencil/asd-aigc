@@ -12,6 +12,8 @@ public class storyPageSwitch : MonoBehaviour
     public GameObject pageTitle, pageBody;
     [SerializeField] private GameObject storyOject;
     [SerializeField] private StoryScript storyScript;
+
+
     // Start is called before the first frame update
     void Awake()
     {
