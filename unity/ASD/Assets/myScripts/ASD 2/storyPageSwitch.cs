@@ -79,6 +79,22 @@ public class storyPageSwitch : MonoBehaviour
         }
     }
 
+    public void pageJump(int targetPageIndex)
+    {
+        if (activePageIndex <= imageArray.Count - 1 && activePageIndex >=0)
+        {
+            imageArray[activePageIndex].SetActive(false);
+            activePageIndex = targetPageIndex;
+            imageArray[targetPageIndex].SetActive(true);
+
+            DisplayTitle(targetPageIndex);
+        }
+        else 
+        {
+            Debug.Log("Page Not Exist");
+        }
+    }
+
     private void DisplayTitle(int i)
     {
         // pageTitle.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].title;
