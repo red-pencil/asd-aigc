@@ -19,7 +19,6 @@ public class TemplateDraw : MonoBehaviour
     [SerializeField] private StoryScript storyScript;
     [SerializeField] private GameObject faceswapObject;
     [SerializeField] private GameObject pageSwitchObject;
-
     [SerializeField] private int currentPageIndex;
 
 
@@ -50,8 +49,8 @@ public class TemplateDraw : MonoBehaviour
             //texture.Reinitialize(512, 512);
             rawimgArray[i].texture = texture;
 
-            // var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), Vector2.zero, 1f);
-            // imageArray[i].sprite = sprite;
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, 1400, 1400), Vector2.zero, 1f);
+            imageArray[i].sprite = sprite;
 
         }
         
