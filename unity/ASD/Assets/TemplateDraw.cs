@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 public class TemplateDraw : MonoBehaviour
 {
     public List<string> pathArray = new List<string>();
-    public int pageCount = 6;
-    public int templateOrder = 0;
+    public int pageCount = 26;
+    public string templateName = "";
 
     public List<Image> imageArray = new List<Image>();
     public List<RawImage> rawimgArray = new List<RawImage>();
-    public int pageTotal = 6;
+    // public int pageTotal = 26;
 
     [SerializeField] private GameObject storyObject;
     [SerializeField] private StoryScript storyScript;
@@ -38,11 +38,11 @@ public class TemplateDraw : MonoBehaviour
     public async void DrawFromTemplate()
     {
         
-        for (int i = 0; i < pageCount; i++)
+        for (int i = 1; i < pageCount; i++)
         {
             Texture2D texture = new Texture2D(2, 2);
 
-            byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateOrder + '/' + i.ToString() + ".png");
+            byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateName + '/' + i.ToString() + ".png");
             Debug.Log("Read Photo:" + i.ToString() );
 
             texture.LoadImage(imgBytes);
@@ -54,11 +54,11 @@ public class TemplateDraw : MonoBehaviour
 
         }
         
-        for (int i = 0; i < pageCount; i++)
+        for (int i = 1; i < pageCount; i++)
         {
             Texture2D texture = new Texture2D(2, 2);
 
-            byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateOrder + '/' + i.ToString() + ".png");
+            byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateName + '/' + i.ToString() + ".png");
             Debug.Log("Read Photo:" + i.ToString() );
 
             texture.LoadImage(imgBytes);
@@ -66,8 +66,8 @@ public class TemplateDraw : MonoBehaviour
             Debug.Log("Swap Begin" + i.ToString() );
             faceswapObject.GetComponent<FaceSwap>().FunsionFaceInput(texture, i);
             Debug.Log("Swap End" + i.ToString() );
-            Debug.Log(faceswapObject.GetComponent<FaceSwap>().resultCount);
-            Debug.Log(i);
+            Debug.Log("finished" + faceswapObject.GetComponent<FaceSwap>().resultCount);
+            Debug.Log("began" + i);
             while (faceswapObject.GetComponent<FaceSwap>().resultCount < (i+1)) await Task.Yield();
 
             Debug.Log("Finish");
@@ -87,7 +87,7 @@ public class TemplateDraw : MonoBehaviour
         int i = currentPageIndex;
         Texture2D texture = new Texture2D(2, 2);
 
-        byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateOrder + '/' + i.ToString() + ".png");
+        byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyTemplates/" + templateName + '/' + i.ToString() + ".png");
         Debug.Log("Read Photo:" + i.ToString() );
 
         texture.LoadImage(imgBytes);
@@ -109,7 +109,7 @@ public class TemplateDraw : MonoBehaviour
         foreach (PageScript pageScript in storyScript.pages)
         {
             pathArray.Add(pageScript.prompt);
-            // templateOrder = int.Parse(pageScript.templatePath);
+            // templateName = int.Parse(pageScript.templatePath);
             
         }
         // pageCount = pathArray.Count;

@@ -230,23 +230,23 @@ public class FaceSwap : MonoBehaviour
     {
         Debug.Log(info);
         Response response = JsonMapper.ToObject<Response>(info);
+        Debug.Log(response.error_msg);
         // while (response.error_code != 0) await Task.Yield();
         if (response.error_code == 0) // 0 表示成功融合图片
         {
-            Debug.Log(response.error_msg);
-
             string ImgBase64 = response.result.merge_image;
 
             // resultImgArray[globalIndex].texture = FaceMerge.Instance.Base64ToTexture2D(targetFusionTex.width, targetFusionTex.height, ImgBase64);
             resultImgArray[resultCount].texture = FaceMerge.Instance.Base64ToTexture2D(512, 512, ImgBase64);
-            Debug.Log("result count =" + resultCount.ToString());
-            resultCount = resultCount + 1;
             
         } 
         else
         {
-            
+            Debug.Log("No image is generated");
         }
+
+        Debug.Log("result count =" + resultCount.ToString());
+        resultCount = resultCount + 1;
     }
 
      private void OnFaceMergeEmotion(string info)

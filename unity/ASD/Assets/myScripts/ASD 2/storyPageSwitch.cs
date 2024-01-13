@@ -99,15 +99,19 @@ public class storyPageSwitch : MonoBehaviour
     {
         // pageTitle.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].title;
         // pageBody.GetComponent<TMP_Text>().text = allStorysInfo.pageInfo[i].body;
-        if (i == 0 )
-        {
-            pageTitle.GetComponent<TMP_Text>().text = "AIGC";
-            pageBody.GetComponent<TMP_Text>().text = "Generation AI";
-        } else 
-        {
-            pageTitle.GetComponent<TMP_Text>().text = "[" + (storyScript.pages[i-1].index + 1).ToString() + "] " + storyScript.pages[i-1].title;
-            pageBody.GetComponent<TMP_Text>().text = storyScript.pages[i-1].body;
-        }
+
+        // if (i == 0 )
+        // {
+        //     pageTitle.GetComponent<TMP_Text>().text = "AIGC";
+        //     pageBody.GetComponent<TMP_Text>().text = "Generation AI";
+        // } else 
+        // {
+        //     pageTitle.GetComponent<TMP_Text>().text = "[" + (storyScript.pages[i-1].index + 0).ToString() + "] " + storyScript.pages[i-1].title;
+        //     pageBody.GetComponent<TMP_Text>().text = storyScript.pages[i-1].body;
+        // }
+
+        pageTitle.GetComponent<TMP_Text>().text = "[" + (storyScript.pages[i].index).ToString() + "] " + storyScript.pages[i].title;
+        pageBody.GetComponent<TMP_Text>().text = storyScript.pages[i].body;
         
     }
 }
