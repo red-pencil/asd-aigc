@@ -19,7 +19,7 @@ public class FaceSwap : MonoBehaviour
     /// 融合模板图
     /// </summary>
     /// 
-    [SerializeField] Texture2D curTex;
+    [SerializeField] public Texture2D curTex;
     [SerializeField] Texture2D[] curTexArray;
     
     [SerializeField] Texture2D targetFusionTex;

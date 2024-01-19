@@ -4,12 +4,14 @@ ScriptsOnlyBuild:
     - AddDes
     - AutorunP3
     - AutorunS2
+    - AvatarChoose
     - ChatGPTRecordIO
     - FaceFusion.FaceMerge
     - FaceSwap
     - GPTLoading
     - InfoPageSwitch
     - JsonStory
+    - LevelSwtich
     - LoadScene
     - OpenAI.AIDraw
     - OpenAI.ChatGPT
@@ -75,6 +77,7 @@ ScriptsOnlyBuild:
     - ChatGPTRecords
     - ChildrenInfo
     - ChildrenProfile
+    - MetaChoice
     - PageScript
     - PromptTemplate
     - StoryScript
@@ -149,6 +152,9 @@ ScriptsOnlyBuild:
     fullTypeName: InfoPageSwitch
     methodName: PagePrev
   - assembly: Assembly-CSharp
+    fullTypeName: AvatarChoose
+    methodName: SwtichFiles
+  - assembly: Assembly-CSharp
     fullTypeName: OpenAI.StoryRefine
     methodName: RefineWithAdd
   - assembly: Assembly-CSharp
@@ -163,6 +169,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: InfoPageSwitch
     methodName: PagePrev
+  - assembly: Assembly-CSharp
+    fullTypeName: AvatarChoose
+    methodName: SaveChoiceJson
   - assembly: Assembly-CSharp
     fullTypeName: PanelSwitchForeBack
     methodName: togglePanel
@@ -188,6 +197,9 @@ ScriptsOnlyBuild:
     fullTypeName: ProfileIO
     methodName: WriteToInput
   - assembly: Assembly-CSharp
+    fullTypeName: AvatarChoose
+    methodName: SaveChoiceJson
+  - assembly: Assembly-CSharp
     fullTypeName: LoadScene
     methodName: LoadNext
   - assembly: Assembly-CSharp
@@ -205,6 +217,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: InfoPageSwitch
     methodName: PageNext
+  - assembly: Assembly-CSharp
+    fullTypeName: AvatarChoose
+    methodName: SwtichFiles
   - assembly: Assembly-CSharp
     fullTypeName: saveStory
     methodName: SaveStory
@@ -318,6 +333,9 @@ ScriptsOnlyBuild:
     methodName: pageNext
   - assembly: Assembly-CSharp
     fullTypeName: storyPageSwitch
+    methodName: pagePrev
+  - assembly: Assembly-CSharp
+    fullTypeName: storyPageSwitch
     methodName: pageJump
   - assembly: Assembly-CSharp
     fullTypeName: storyPageSwitch
@@ -377,6 +395,9 @@ ScriptsOnlyBuild:
     fullTypeName: storyPageSwitch
     methodName: pagePrev
   - assembly: Assembly-CSharp
+    fullTypeName: LoadScene
+    methodName: LoadNext
+  - assembly: Assembly-CSharp
     fullTypeName: storyPageSwitch
     methodName: pageJump
   - assembly: Assembly-CSharp
@@ -429,91 +450,93 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1548}
     - Class: 114
-      Script: {instanceID: 1594}
+      Script: {instanceID: 1596}
     - Class: 114
-      Script: {instanceID: 1730}
+      Script: {instanceID: 1732}
     - Class: 114
-      Script: {instanceID: 1966}
+      Script: {instanceID: 1968}
     - Class: 114
-      Script: {instanceID: 2238}
+      Script: {instanceID: 2240}
     - Class: 114
-      Script: {instanceID: 2244}
+      Script: {instanceID: 2246}
     - Class: 114
-      Script: {instanceID: 2384}
+      Script: {instanceID: 2386}
     - Class: 114
-      Script: {instanceID: 2662}
+      Script: {instanceID: 2664}
     - Class: 114
-      Script: {instanceID: 2726}
+      Script: {instanceID: 2728}
     - Class: 114
-      Script: {instanceID: 2732}
+      Script: {instanceID: 2734}
     - Class: 114
-      Script: {instanceID: 2936}
+      Script: {instanceID: 2938}
     - Class: 114
-      Script: {instanceID: 2982}
+      Script: {instanceID: 2984}
     - Class: 114
-      Script: {instanceID: 3248}
+      Script: {instanceID: 3250}
     - Class: 114
-      Script: {instanceID: 3762}
+      Script: {instanceID: 3764}
     - Class: 114
-      Script: {instanceID: 4106}
+      Script: {instanceID: 4108}
     - Class: 114
-      Script: {instanceID: 4128}
+      Script: {instanceID: 4130}
     - Class: 114
-      Script: {instanceID: 4264}
+      Script: {instanceID: 4266}
     - Class: 114
-      Script: {instanceID: 4302}
+      Script: {instanceID: 4304}
     - Class: 114
-      Script: {instanceID: 4324}
+      Script: {instanceID: 4326}
     - Class: 114
-      Script: {instanceID: 4372}
+      Script: {instanceID: 4374}
     - Class: 114
-      Script: {instanceID: 4388}
+      Script: {instanceID: 4390}
     - Class: 114
-      Script: {instanceID: 4478}
+      Script: {instanceID: 4480}
     - Class: 114
-      Script: {instanceID: 4676}
+      Script: {instanceID: 4678}
     - Class: 114
-      Script: {instanceID: 5236}
+      Script: {instanceID: 5238}
     - Class: 114
-      Script: {instanceID: 5258}
+      Script: {instanceID: 5260}
     - Class: 114
-      Script: {instanceID: 5322}
+      Script: {instanceID: 5324}
     - Class: 114
-      Script: {instanceID: 5462}
+      Script: {instanceID: 5464}
     - Class: 114
-      Script: {instanceID: 5486}
+      Script: {instanceID: 5488}
     - Class: 114
-      Script: {instanceID: 5508}
+      Script: {instanceID: 5510}
     - Class: 114
-      Script: {instanceID: 5744}
+      Script: {instanceID: 5746}
     - Class: 114
-      Script: {instanceID: 6070}
+      Script: {instanceID: 6072}
     - Class: 114
-      Script: {instanceID: 6242}
+      Script: {instanceID: 6244}
     - Class: 114
-      Script: {instanceID: 6596}
-    - Class: 114
-      Script: {instanceID: 6606}
+      Script: {instanceID: 6598}
     - Class: 114
       Script: {instanceID: 6608}
     - Class: 114
-      Script: {instanceID: 7016}
+      Script: {instanceID: 6610}
     - Class: 114
-      Script: {instanceID: 7064}
+      Script: {instanceID: 7018}
     - Class: 114
-      Script: {instanceID: 7458}
+      Script: {instanceID: 7066}
     - Class: 114
-      Script: {instanceID: 7736}
+      Script: {instanceID: 7460}
     - Class: 114
-      Script: {instanceID: 7780}
+      Script: {instanceID: 7738}
     - Class: 114
-      Script: {instanceID: 7800}
+      Script: {instanceID: 7782}
     - Class: 114
-      Script: {instanceID: 7842}
+      Script: {instanceID: 7802}
+    - Class: 114
+      Script: {instanceID: 7844}
     - Class: 114
       Script: {instanceID: 8180}
     - Class: 114
       Script: {instanceID: 8508}
+    - Class: 114
+      Script: {instanceID: 25916}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -552,51 +575,55 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1594}
+      Script: {instanceID: 1564}
     - Class: 114
-      Script: {instanceID: 1730}
+      Script: {instanceID: 1596}
     - Class: 114
-      Script: {instanceID: 1982}
+      Script: {instanceID: 1732}
     - Class: 114
-      Script: {instanceID: 2384}
+      Script: {instanceID: 1984}
     - Class: 114
-      Script: {instanceID: 2726}
+      Script: {instanceID: 2386}
     - Class: 114
-      Script: {instanceID: 2936}
+      Script: {instanceID: 2728}
     - Class: 114
-      Script: {instanceID: 2982}
+      Script: {instanceID: 2938}
     - Class: 114
-      Script: {instanceID: 3226}
+      Script: {instanceID: 2984}
     - Class: 114
-      Script: {instanceID: 3248}
+      Script: {instanceID: 3228}
     - Class: 114
-      Script: {instanceID: 4132}
+      Script: {instanceID: 3250}
     - Class: 114
-      Script: {instanceID: 4214}
+      Script: {instanceID: 4134}
     - Class: 114
-      Script: {instanceID: 4568}
+      Script: {instanceID: 4216}
     - Class: 114
-      Script: {instanceID: 5462}
+      Script: {instanceID: 4480}
     - Class: 114
-      Script: {instanceID: 5608}
+      Script: {instanceID: 4570}
     - Class: 114
-      Script: {instanceID: 5744}
+      Script: {instanceID: 5464}
     - Class: 114
-      Script: {instanceID: 5866}
+      Script: {instanceID: 5610}
     - Class: 114
-      Script: {instanceID: 6070}
+      Script: {instanceID: 5746}
     - Class: 114
-      Script: {instanceID: 6242}
+      Script: {instanceID: 5868}
     - Class: 114
-      Script: {instanceID: 6596}
+      Script: {instanceID: 6072}
     - Class: 114
-      Script: {instanceID: 7780}
+      Script: {instanceID: 6244}
+    - Class: 114
+      Script: {instanceID: 6598}
+    - Class: 114
+      Script: {instanceID: 7782}
     - Class: 114
       Script: {instanceID: 7968}
     - Class: 114
       Script: {instanceID: 8402}
     - Class: 114
-      Script: {instanceID: 129260}
+      Script: {instanceID: 135506}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -632,6 +659,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UIElements
     className: PanelRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: 77c4a7e1a9ee377f36f97aac0dc5ebe6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AutorunS2
   - hash:
       serializedVersion: 2
       Hash: a6e561615949734e9f12f9b61661f43e
@@ -2014,12 +2047,18 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: faa2eb0beaf885948458f93b27eb4042
+      Hash: d9a71b43e6612e088d5e1a7152fb2ad2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: AutorunS2
+    className: AvatarChoose
+  - hash:
+      serializedVersion: 2
+      Hash: 68e391425e1aee74aa50efa9fc6c6341
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LevelSwtich
   platform: 19
   scenePathNames:
   - Assets/myScene/ASD 1.unity
   - Assets/myScene/ASD 2.unity
-  playerPath: C:/Users/Lichao/Documents/GitHub/asd-emotion-aigc/unity/ASD/Builds/v3/ASD.exe
+  playerPath: C:/Users/Lichao/Documents/GitHub/asd-emotion-aigc/unity/ASD/Builds/v5/ASD.exe
