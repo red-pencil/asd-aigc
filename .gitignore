@@ -74,3 +74,4 @@ crashlytics-build.properties
 auth.json
 *.json
 unity/ASD/Assets/Scripts/FaceFusion/AccessToken.cs
+unity/ASD/Builds/*

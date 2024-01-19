@@ -20993,6 +20993,7 @@ GameObject:
   - component: {fileID: 1758166753}
   - component: {fileID: 1758166752}
   - component: {fileID: 1758166754}
+  - component: {fileID: 1758166755}
   m_Layer: 0
   m_Name: Load Story
   m_TagString: Untagged
@@ -21056,6 +21057,21 @@ MonoBehaviour:
   titleDivider: 
   promptDivider: 
   bodyDivider: 
+--- !u!114 &1758166755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758166751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda2cc523a662844c81d568f4ad75d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadStoryObject: {fileID: 1758166751}
+  PageSwtichObject: {fileID: 1456911063}
+  AiDrawObject: {fileID: 305091626}
 --- !u!1 &1760622294
 GameObject:
   m_ObjectHideFlags: 0
@@ -24443,10 +24459,10 @@ RectTransform:
   m_Father: {fileID: 825071343}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2116942457
 MonoBehaviour:

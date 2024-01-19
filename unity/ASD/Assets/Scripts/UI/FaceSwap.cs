@@ -46,6 +46,20 @@ public class FaceSwap : MonoBehaviour
         // WebCamera.Instance.InitCamera(800,600);
         // WebCamera.Instance.OpenCamera();
         // rawImg.texture = WebCamera.Instance.renderTex;
+
+        LoadCurTex("0"); 
+    }
+
+    public void LoadCurTex(string fileName)
+    {
+        Texture2D texture = new Texture2D(2, 2);
+
+        byte[] imgBytes = System.IO.File.ReadAllBytes("./Assets/MyAvatar/" + fileName + ".png");
+        Debug.Log("Read User Avatar");
+
+        texture.LoadImage(imgBytes);
+        //texture.Reinitialize(512, 512);
+        curTex = texture;
     }
 
     private void FunsionFace()
